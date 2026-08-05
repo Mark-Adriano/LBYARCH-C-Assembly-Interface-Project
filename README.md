@@ -31,11 +31,20 @@ main.exe
 ```
 
 # Execution Time Comparison
+| Vector Size (n) | Mode | C Kernel (seconds) | x86-64 ASM Kernel (seconds) |
+| :--- | :--- | :--- | :--- |
+| **2^20** | Debug (-O0) | 0.002914 | 0.000926 |
+| **2^20** | Release (-O3)| 0.000941 | 0.001011 |
+| **2^24** | Debug (-O0) | 0.046766 | 0.015250 |
+| **2^24** | Release (-O3)| 0.015153 | 0.016300 |
+| **2^28** | Debug (-O0) | 0.780771 | 0.252871 |
+| **2^28** | Release (-O3)| 0.273423 | 0.257990 |
 
 ### Analysis
+explanation here
 
 # Correctness Check Output
-picture of output here
+<img width="935" height="405" alt="Correctness Check Output" src="https://github.com/user-attachments/assets/ba5e260e-02b3-470f-9660-8cbc7d5d2be7" />
 
 # Demo Video
 video here
