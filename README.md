@@ -41,7 +41,9 @@ main.exe
 | **2^28** | Release (-O3)| 0.273423 | 0.257990 |
 
 ### Analysis
-explanation here
+The program computes the dot product using the formula given in the specs, using functional scalar SIMD instructions for the double-precision floats. The code then successfully implements the testing constraints: evaluating vector sizes ranging from 2^20, 2^24, and 2^28, looping 20 times just for averaging, and then doing a sanity check against the C kernel.
+
+
 
 # Correctness Check Output
 <img width="935" height="405" alt="Correctness Check Output" src="https://github.com/user-attachments/assets/ba5e260e-02b3-470f-9660-8cbc7d5d2be7" />
