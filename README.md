@@ -41,9 +41,12 @@ main.exe
 | **2^28** | Release (-O3)| 0.273423 | 0.257990 |
 
 ### Analysis
-The program computes the dot product using the formula given in the specs, using functional scalar SIMD instructions for the double-precision floats. The code then successfully implements the testing constraints: evaluating vector sizes ranging from 2^20, 2^24, and 2^28, looping 20 times just for averaging, and then doing a sanity check against the C kernel.
 
+Based on the execution time comparison, we observed the following:
 
+*   **Debug Mode (Unoptimized):** Without compiler optimizations (`-O0`), our hand-written x86-64 assembly kernel significantly outperforms the C kernel clocking in about **3 times faster** across the board. This is because unoptimized C code suffers from basic loop overhead, redundant memory fetches, and clunky stack management. Meanwhile the ASM kernel explicitly and efficiently manages `xmm` registers and loop counters.
+*   **Release Mode (Optimized):** When compiled with high-level optimizations (`-O3`), the C compiler suddenly improves performance. It achieves this by heavily optimizing register allocation, unrolls loops, and likely auto-vectorizes the code, bringing its execution time on par with, or slightly better, than scalar assembly.
+*   **Memory Bottleneck at Scale (2^28):** When we push the vector size to 2^28 (requiring roughly 2GB of memory per vector), we hit a physical hardware wall. At this massive scale, raw CPU compute speed doesn't really matter anymore. Both kernels begin to heavily bottleneck at the memory bandwidth level. Because of this, the execution times for both the optimized C and ASM kernels converge closely around 0.25 to 0.27 seconds.
 
 # Correctness Check Output
 <img width="935" height="405" alt="Correctness Check Output" src="https://github.com/user-attachments/assets/ba5e260e-02b3-470f-9660-8cbc7d5d2be7" />
